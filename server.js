@@ -33,9 +33,10 @@ app.post("/send-email", async (req, res) => {
     
 
     const mailOptions = {
-        from: email,
-        to: "aiymashah1@gmail.com",
-        subject: " Reservation by ${name}",
+        from: `no-reply@yourhotel.com`, // Fixed sender email
+        to: "aiymashah1@gmail.com",    // Recipient email
+        replyTo: email,                // User's email for replies
+        subject: `New Booking Request`,
         text: `
             Name: ${name}
             Email: ${email}
@@ -47,6 +48,8 @@ app.post("/send-email", async (req, res) => {
             Rooms: ${rooms}
         `,
     };
+    
+    
 
     try {
         await transporter.sendMail(mailOptions);
